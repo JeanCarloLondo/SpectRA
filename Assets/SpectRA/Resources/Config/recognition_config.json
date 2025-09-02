@@ -1,0 +1,7 @@
+{
+  "sampleEveryMs": 250,
+  "minConfidence": 0.6,
+  "smoothingWindow": 5,
+  "inputSize": 256,
+  "threads": 4
+}

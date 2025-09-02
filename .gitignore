@@ -1,0 +1,44 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Lightmap and cache data
+/[Aa]rtifacts/
+LightmapSnapshot/
+*.LightingData.asset
+
+# Visual Studio / JetBrains Rider
+.vscode/
+.idea/
+*.sln
+*.csproj
+*.unityproj
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build results
+*.apk
+*.aab
+*.unitypackage
+*.exe
+*.app
+*.xcodeproj/
+*.xcworkspace/
+
+# Crash reports
+sysinfo.txt
