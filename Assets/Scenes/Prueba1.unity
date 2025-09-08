@@ -492,7 +492,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1218127162}
         m_TargetAssemblyTypeName: OverlayController, Assembly-CSharp
-        m_MethodName: Hide
+        m_MethodName: HideAndUnlock
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1059,6 +1059,7 @@ MonoBehaviour:
   labels: {fileID: 4900000, guid: 968e13f97c9cd1147a8a28ef65513e4a, type: 3}
   overlay: {fileID: 1218127162}
   confidenceThreshold: 0.6
+  requiredStableFrames: 3
 --- !u!1 &1253259293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,6 +1450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ARCameraFrameProvider
   targetWidth: 224
   targetHeight: 224
+  sendEveryNFrames: 2
 --- !u!1 &1437391156
 GameObject:
   m_ObjectHideFlags: 0
