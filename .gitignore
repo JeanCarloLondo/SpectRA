@@ -1,4 +1,6 @@
-# Unity generated folders
+# =========================
+# Unity - Project Defaults
+# =========================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -7,15 +9,32 @@
 [Ll]ogs/
 [Mm]emoryCaptures/
 UserSettings/
+[Aa]rtifacts/
 
-# Lightmap and cache data
-/[Aa]rtifacts/
+# =========================
+# Build Artifacts
+# =========================
+*.apk
+*.aab
+*.unitypackage
+*.exe
+*.app
+*.xcodeproj/
+*.xcworkspace/
+*.ipa
+
+# =========================
+# Lightmap & Cache Data
+# =========================
 LightmapSnapshot/
 *.LightingData.asset
 
-# Visual Studio / JetBrains Rider
+# =========================
+# Rider / Visual Studio / JetBrains
+# =========================
 .vscode/
 .idea/
+.vs/
 *.sln
 *.csproj
 *.unityproj
@@ -26,19 +45,39 @@ LightmapSnapshot/
 *.pidb
 *.booproj
 *.svd
+*.DotSettings
+*.DotSettings.user
 
-# OS generated files
+# =========================
+# OS Generated Files
+# =========================
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Build results
-*.apk
-*.aab
-*.unitypackage
-*.exe
-*.app
-*.xcodeproj/
-*.xcworkspace/
-
-# Crash reports
+# =========================
+# Crash Reports
+# =========================
 sysinfo.txt
+
+# =========================
+# SpectRA Specific
+# =========================
+# Incluimos modelos y labels dentro de Assets
+#    (¡NO ignores estos!)
+# Assets/SpectRA/Models/TFLite/*.tflite
+# Assets/SpectRA/Models/TFLite/labels.txt
+
+# Si en algún momento guardas datasets grandes de prueba, sí ignóralos:
+# Assets/SpectRA/Datasets/
+
+# =========================
+# TextMesh Pro Cache
+# =========================
+Assets/TextMesh Pro*/Resources/*
+
+# =========================
+# Plastic SCM / Collab (si no usas)
+# =========================
+[Pp]lasticSCM/
+[Cc]ollab/
