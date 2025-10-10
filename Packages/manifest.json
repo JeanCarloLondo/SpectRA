@@ -16,6 +16,11 @@
     }
   ],
   "dependencies": {
+    "com.cysharp.unitask": "2.5.10",
+    "com.github.asus4.mediapipe": "2.19.0-p2",
+    "com.github.asus4.tflite": "2.19.0-p2",
+    "com.github.asus4.tflite.common": "2.19.0-p2",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.collab-proxy": "2.9.2",
     "com.unity.feature.development": "1.0.2",
     "com.unity.inputsystem": "1.14.2",
@@ -59,10 +64,6 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "com.github.asus4.tflite": "2.19.0-p2",
-    "com.github.asus4.tflite.common": "2.19.0-p2",
-    "com.github.asus4.mediapipe": "2.19.0-p2",
-    "com.cysharp.unitask": "2.5.10"
+    "com.unity.modules.xr": "1.0.0"
   }
 }
