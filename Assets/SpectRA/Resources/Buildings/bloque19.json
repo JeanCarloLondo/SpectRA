@@ -1,0 +1,10 @@
+{
+  "id": "bloque19",
+  "name": "Bloque 19",
+  "services": ["Salas de estudio", "Laboratorios", "Aulas"],
+  "hours": [
+    { "label": "Lun–Vie", "open": "07:00", "close": "21:00" },
+    { "label": "Sáb", "open": "08:00", "close": "14:00" }
+  ],
+  "gallery": ["bloque19_1", "bloque19_2"]
+}

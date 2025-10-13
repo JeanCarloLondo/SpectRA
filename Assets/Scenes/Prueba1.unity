@@ -893,7 +893,6 @@ GameObject:
   - component: {fileID: 651900153}
   - component: {fileID: 651900152}
   - component: {fileID: 651900151}
-  - component: {fileID: 651900150}
   - component: {fileID: 651900149}
   m_Layer: 5
   m_Name: CloseButton
@@ -924,18 +923,6 @@ RectTransform:
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &651900149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651900147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c639d5c4d3064479e882400bdfc17e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ClosePanel
---- !u!114 &651900150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1616,7 +1603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.066, y: 0}
   m_AnchorMax: {x: 1, y: 0.80526793}
-  m_AnchoredPosition: {x: -27.733, y: 36.707}
+  m_AnchoredPosition: {x: -27.732971, y: 36.707}
   m_SizeDelta: {x: 55.466, y: 73.414}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1218127160
@@ -1672,6 +1659,10 @@ MonoBehaviour:
   canvasGroup: {fileID: 1218127163}
   buildingNameText: {fileID: 927664582}
   confidenceText: {fileID: 353184871}
+  servicesText: {fileID: 1891257301}
+  hoursText: {fileID: 1891257301}
+  galleryParent: {fileID: 1516704853}
+  galleryItemTemplate: {fileID: 1516704851}
   unknownText: Building not recognized
   fadeDuration: 0.15
 --- !u!225 &1218127163

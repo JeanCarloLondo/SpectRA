@@ -1,17 +1,28 @@
-// Assets/SpectRA/Scripts/UI/OverlayController.cs
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Text;
+using System.Collections.Generic;
 
 [DisallowMultipleComponent]
+[RequireComponent(typeof(CanvasGroup))]
 public class OverlayController : MonoBehaviour
 {
     [Header("Required")]
-    [SerializeField] private CanvasGroup canvasGroup;   // CanvasGroup del Panel
+    [SerializeField] private CanvasGroup canvasGroup;    // CanvasGroup del Panel
 
-    [Header("Texts (TMP)")]
-    [SerializeField] private TMP_Text buildingNameText; // TitleText
-    [SerializeField] private TMP_Text confidenceText;   // Description (o un segundo TMP para %)
+    [Header("Header (TMP)")]
+    [SerializeField] private TMP_Text buildingNameText;  // Título
+    [SerializeField] private TMP_Text confidenceText;    // "63%"
+
+    [Header("Details (TMP)")]
+    [SerializeField] private TMP_Text servicesText;      // Multilínea con bullets
+    [SerializeField] private TMP_Text hoursText;         // Multilínea con horarios
+
+    [Header("Gallery (optional)")]
+    [SerializeField] private Transform galleryParent;    // Contenedor de thumbnails (Layout)
+    [SerializeField] private Image galleryItemTemplate;  // Plantilla desactivada (Image)
 
     [Header("Config")]
     [SerializeField] private string unknownText = "Building not recognized";
@@ -34,13 +45,12 @@ public class OverlayController : MonoBehaviour
         IsLocked = false;
     }
 
-    /// <summary>
-    /// Muestra el panel con label + % confianza (0..1) y LO BLOQUEA
-    /// hasta que el usuario pulse "Cerrar".
-    /// </summary>
+    // ------------ API de panel básico ------------
+
+    /// <summary>Muestra título + % y bloquea hasta cerrar.</summary>
     public void Show(string label, float confidence01)
     {
-        // Actualiza contenido
+        // Actualiza cabecera
         if (buildingNameText)
             buildingNameText.text = string.IsNullOrWhiteSpace(label) ? unknownText : label;
 
@@ -50,33 +60,82 @@ public class OverlayController : MonoBehaviour
             confidenceText.text = $"{pct}%";
         }
 
-        // Habilita interacción y muestra con fade
         SetRaycast(true);
         FadeTo(1f, fadeDuration);
-
-        // Queda fijo hasta cerrar
-        IsLocked = true;
+        IsLocked = true; // 🔒 hasta cerrar
     }
 
     /// <summary> Oculta el panel (no desbloquea). </summary>
     public void Hide(bool immediate = false)
     {
-        SetRaycast(false);
         if (immediate) SetAlpha(0f);
         else FadeTo(0f, fadeDuration);
+
+        SetRaycast(false);
+        // No cambiamos IsLocked aquí (lo hace HideAndUnlock)
+        ClearDetails();
     }
 
-    /// <summary>
-    /// Llamar desde el botón "Cerrar".
-    /// Oculta inmediatamente y DESBLOQUEA para permitir nuevos reconocimientos.
-    /// </summary>
+    /// <summary> Botón Cerrar → oculta y desbloquea. </summary>
     public void HideAndUnlock()
     {
         Hide(immediate: true);
-        IsLocked = false;
+        IsLocked = false; // 🔓 permite nuevas detecciones
     }
 
-    // ----------------- helpers -----------------
+    // ------------ Datos offline (detalles) ------------
+
+    public void ApplyDetails(BuildingInfo info)
+    {
+        if (info == null) return;
+
+        // Nombre "bonito" por si el label del modelo era raw
+        if (buildingNameText && !string.IsNullOrWhiteSpace(info.name))
+            buildingNameText.text = info.name;
+
+        if (servicesText)
+        {
+            if (info.services != null && info.services.Count > 0)
+            {
+                var sb = new StringBuilder();
+                foreach (var s in info.services) sb.AppendLine("• " + s);
+                servicesText.text = sb.ToString();
+            }
+            else servicesText.text = "-";
+        }
+
+        if (hoursText)
+        {
+            if (info.hours != null && info.hours.Count > 0)
+            {
+                var sb = new StringBuilder();
+                foreach (var h in info.hours)
+                {
+                    var lbl = string.IsNullOrEmpty(h.label) ? "" : (h.label + ": ");
+                    sb.AppendLine($"{lbl}{h.open}–{h.close}");
+                }
+                hoursText.text = sb.ToString();
+            }
+            else hoursText.text = "-";
+        }
+
+        if (galleryParent && galleryItemTemplate)
+        {
+            ClearGallery();
+            List<Sprite> sprites = LocalBuildingStore.LoadGallerySprites(info);
+            foreach (var sp in sprites)
+            {
+                var img = Instantiate(galleryItemTemplate, galleryParent);
+                img.gameObject.SetActive(true);
+                img.sprite = sp;
+                // opcional: preserva proporción
+                var fitter = img.GetComponent<AspectRatioFitter>();
+                if (fitter) fitter.aspectRatio = sp.rect.width / sp.rect.height;
+            }
+        }
+    }
+
+    // ------------ helpers ------------
 
     private void SetRaycast(bool enabled)
     {
@@ -117,5 +176,23 @@ public class OverlayController : MonoBehaviour
             yield return null;
         }
         SetAlpha(target);
+    }
+
+    private void ClearDetails()
+    {
+        if (servicesText) servicesText.text = string.Empty;
+        if (hoursText) hoursText.text = string.Empty;
+        ClearGallery();
+    }
+
+    private void ClearGallery()
+    {
+        if (!galleryParent) return;
+        for (int i = galleryParent.childCount - 1; i >= 0; i--)
+        {
+            var child = galleryParent.GetChild(i).gameObject;
+            if (galleryItemTemplate && child == galleryItemTemplate.gameObject) continue; // no borres la plantilla
+            Destroy(child);
+        }
     }
 }
