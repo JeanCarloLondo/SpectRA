@@ -48,28 +48,33 @@ public class PopupController : MonoBehaviour
     public void ShowHorarios()
     {
         Show("Horarios",
-            "🕓 Piso 1: 7am – 5pm\n" +
-            "🕔 Piso 2: 8am – 6pm\n" +
-            "🕕 Piso 3: 9am – 7pm");
+            " <b>Piso 1:</b> 6am - 6pm\n" +
+            " <b>Piso 2:</b> 6am - 6pm\n" +
+            " <b>Piso 3:</b> 6am - 6pm\n" +
+            " <b>Piso 4:</b> 6am - 9pm\n" +
+            " <b>Piso 5:</b> 6am - 9pm\n" +
+            " <b>Piso 6:</b> 6am - 9pm\n" +
+            " <b>Piso 7:</b> 6am - 9pm");
     }
 
     public void ShowDistribucion()
     {
         Show("Distribución",
-            "📚 Piso 1: Laboratorio Chevrolett\n" +
-            "💻 Piso 2: Laboratorio de Electronica\n" +
-            "💻 Piso 3: Laboratorio de Electronica\n" +
-            "💻 Piso 4: Sala de computo, Aula de clase y Oficinas de profesores\n" +
-            "💻 Piso 5: Sala de estudio Doctorado y Maestria y Oficinas de profesores\n" +
-            "💻 Piso 6: Mercadeo\n" +
-            "🏢 Piso 7: Maestria mercadeo");
+            " <b>Piso 1:</b> Laboratorio Chevrolett\n" +
+            " <b>Piso 2:</b> Laboratorio de Electronica\n" +
+            " <b>Piso 3:</b> laboratorios y talleres\n" +
+            " <b>Piso 4:</b> Sala de computo, Aula de clase y Oficinas de profesores\n" +
+            " <b>Piso 5:</b> Sala de estudio Doctorado y Maestria y Oficinas de profesores\n" +
+            " <b>Piso 6:</b> Maestria Mercadeo\n" +
+            " <b>Piso 7:</b> Maestrias");
     }
 
     public void ShowHistoria()
     {
-        Show("Historia del Bloque 19",
+        Show("<b>Historia del Bloque 19</b>",
             "El Bloque 19 fue inaugurado en 2010 como sede de las ingenierías.\n" +
-            "Aquí se encuentran los programas de Doctorado y los laboratorios principales.");
+            "Aun que ha recibido renovaciones varias veces.\n" +
+            "Aquí se encuentran los programas de  Maestria, Doctorado y los laboratorios principales.");
     }
 
 
@@ -95,7 +100,8 @@ public class PopupController : MonoBehaviour
     }
 
 
-    public void ShowImagenEjemplo(){
+    public void ShowImagenEjemplo()
+    {
 
         Sprite spriteEjemplo = Resources.Load<Sprite>("adentro19"); //imagen que esta en resources
         ShowImagen(spriteEjemplo, "Vista del Bloque 19");
