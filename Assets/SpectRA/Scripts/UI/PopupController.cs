@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using SpectRA.Auth; // ← (por si luego quieres leer/mostrar el rol actual)
 
 public class PopupController : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class PopupController : MonoBehaviour
     [SerializeField] private TMP_Text contenidoText;
     [SerializeField] private Image imagen;              // 👈 Nuevo
     [SerializeField] private VideoPlayer videoPlayer;   // 👈 Nuevo
+
+    // 👇 Arrastra aquí en el Inspector el GameObject que tiene ProfilePromptLauncher
+    [SerializeField] private ProfilePromptLauncher profileLauncher;
 
     private bool isVisible = false;
 
@@ -22,10 +26,10 @@ public class PopupController : MonoBehaviour
     // ----- Método principal -----
     public void Show(string titulo, string contenido)
     {
-        tituloText.text = titulo;
-        contenidoText.text = contenido;
+        if (tituloText)   tituloText.text = titulo;
+        if (contenidoText) contenidoText.text = contenido;
 
-        if (imagen) imagen.gameObject.SetActive(false);
+        if (imagen)      imagen.gameObject.SetActive(false);
         if (videoPlayer) videoPlayer.gameObject.SetActive(false);
 
         gameObject.SetActive(true);
@@ -77,11 +81,10 @@ public class PopupController : MonoBehaviour
             "Aquí se encuentran los programas de  Maestria, Doctorado y los laboratorios principales.");
     }
 
-
     public void ShowImagen(Sprite sprite, string titulo = "Vista del Bloque")
     {
-        tituloText.text = titulo;
-        contenidoText.text = "";
+        if (tituloText) tituloText.text = titulo;
+        if (contenidoText) contenidoText.text = "";
 
         if (imagen)
         {
@@ -99,12 +102,18 @@ public class PopupController : MonoBehaviour
         isVisible = true;
     }
 
-
     public void ShowImagenEjemplo()
     {
-
-        Sprite spriteEjemplo = Resources.Load<Sprite>("adentro19"); //imagen que esta en resources
+        Sprite spriteEjemplo = Resources.Load<Sprite>("adentro19"); // imagen que está en Resources
         ShowImagen(spriteEjemplo, "Vista del Bloque 19");
     }
 
+    // ====== NUEVO: abrir el panel de selección de perfil desde el popup/menú ======
+    public void OpenProfile()
+    {
+        if (profileLauncher != null)
+            profileLauncher.OpenProfilePanel();
+        else
+            Debug.LogWarning("[PopupController] profileLauncher no asignado en el Inspector.");
+    }
 }
