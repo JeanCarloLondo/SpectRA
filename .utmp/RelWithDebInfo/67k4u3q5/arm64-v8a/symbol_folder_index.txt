@@ -1,0 +1,1 @@
+C:\Users\USUARIO\Desktop\Main\Tom\U\5to\P2\TESTS\SpectRA\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\67k4u3q5\obj\arm64-v8a

@@ -1,22 +1,18 @@
-// Assets/SpectRA/Scripts/AR/RecognitionController.cs
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class RecognitionController : MonoBehaviour
 {
     [Header("Sources")]
-    public ARCameraFrameProvider frameProvider;   // Arrastra Main Camera (con ARCameraFrameProvider)
-    public TextAsset tfliteModel;                 // (si tu recognizer lo usa)
-    public TextAsset labels;                      // (si tu recognizer lo usa)
+    public ARCameraFrameProvider frameProvider; // Cámara
+    public TextAsset tfliteModel;
+    public TextAsset labels;
 
     [Header("UI")]
-    public OverlayController overlay;             // Panel (OverlayController)
+    public OverlayController overlay; // Panel UI
 
     [Header("Tuning")]
-    [Tooltip("Confianza mínima para considerar 'match'")]
     [Range(0f, 1f)] public float confidenceThreshold = 0.60f;
-
-    [Tooltip("Frames consecutivos sobre el umbral requeridos para disparar el overlay")]
     [Min(1)] public int requiredStableFrames = 3;
 
     private BuildingRecognizer recognizer;
@@ -24,18 +20,21 @@ public class RecognitionController : MonoBehaviour
 
     private void Start()
     {
-        // Si tu recognizer requiere modelo/labels, valida aquí.
         recognizer = new BuildingRecognizer(tfliteModel, labels);
 
-        if (frameProvider != null) frameProvider.OnFrameReady += OnFrame;
-        else Debug.LogWarning("[SpectRA] frameProvider no asignado (no habrá predicciones).");
+        if (frameProvider != null)
+            frameProvider.OnFrameReady += OnFrame;
+        else
+            Debug.LogWarning("[SpectRA] No hay frameProvider.");
 
-        if (overlay != null) overlay.Hide(immediate: true);
+        if (overlay != null)
+            overlay.Hide(immediate: true);
     }
 
     private void OnDestroy()
     {
-        if (frameProvider != null) frameProvider.OnFrameReady -= OnFrame;
+        if (frameProvider != null)
+            frameProvider.OnFrameReady -= OnFrame;
         recognizer?.Dispose();
     }
 
@@ -49,33 +48,37 @@ public class RecognitionController : MonoBehaviour
         if (conf >= confidenceThreshold)
         {
             aboveCount++;
-            if (aboveCount >= requiredStableFrames && overlay != null)
+            if (aboveCount >= requiredStableFrames)
             {
-                // 1) Muestra panel y bloquea hasta cerrar
+                // Muestra panel
                 overlay.Show(label, conf);
 
-                // 2) Carga detalles offline por etiqueta y puebla UI
-                var info = LocalBuildingStore.LoadInfoByLabel(label);
-                if (info != null) overlay.ApplyDetails(info);
+                // Texto según el bloque detectado
+                string servicios = "";
+                string horarios = "";
 
-                // 3) Reinicia contador para el próximo ciclo
+                if (label == "Bloque19")
+                {
+                    servicios = "• Laboratorios\n• Salas de cómputo\n• Talleres de ingeniería";
+                    horarios = "Lunes a Viernes: 7am – 9pm";
+                }
+                else
+                {
+                    servicios = "No se detectó un bloque reconocido.\nApunta hacia el Bloque 19 para ver su información.";
+                    horarios = "";
+                }
+
+                // Mostrar info
+                overlay.ApplyTextDetails(servicios, horarios);
+
                 aboveCount = 0;
             }
         }
-        else
-        {
-            // perdió estabilidad
-            aboveCount = 0;
-        }
+        else aboveCount = 0;
     }
 
-    /// <summary>
-    /// Conecta este método al botón Cerrar si quieres
-    /// llamar desde aquí en vez de usar OverlayController.HideAndUnlock():
-    /// </summary>
     public void OnUserClose()
     {
-        if (overlay == null) return;
-        overlay.HideAndUnlock();
+        overlay?.HideAndUnlock();
     }
 }
