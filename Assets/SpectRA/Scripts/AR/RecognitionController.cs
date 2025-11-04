@@ -50,32 +50,33 @@ public class RecognitionController : MonoBehaviour
             aboveCount++;
             if (aboveCount >= requiredStableFrames)
             {
-                // Muestra panel
                 overlay.Show(label, conf);
-
-                // Texto según el bloque detectado
-                string servicios = "";
-                string horarios = "";
 
                 if (label == "Bloque19")
                 {
-                    servicios = "• Laboratorios\n• Salas de cómputo\n• Talleres de ingeniería";
-                    horarios = "Lunes a Viernes: 7am – 9pm";
+                    // 🔹 Título y subtítulo principal
+                    overlay.ApplyTextDetails(
+                        "Edificio de ciencias aplicadas e ingeniería",
+                        "Contiene laboratorios de ingeniería civil, mecánica y eléctrica.\n" +
+                        "Pisos 1–3: Laboratorios\n" +
+                        "Pisos 4–7: Oficinas y salas de innovación.\n" +
+                        "Horario: 7:00 a.m. – 9:00 p.m."
+                    );
                 }
                 else
                 {
-                    servicios = "No se detectó un bloque reconocido.\nApunta hacia el Bloque 19 para ver su información.";
-                    horarios = "";
+                    overlay.ApplyTextDetails(
+                        "Edificio no reconocido",
+                        "No se encontró información detallada para este edificio."
+                    );
                 }
-
-                // Mostrar info
-                overlay.ApplyTextDetails(servicios, horarios);
 
                 aboveCount = 0;
             }
         }
         else aboveCount = 0;
     }
+
 
     public void OnUserClose()
     {

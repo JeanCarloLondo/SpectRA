@@ -196,13 +196,14 @@ public class OverlayController : MonoBehaviour
         }
     }
 
-    public void ApplyTextDetails(string servicios, string horarios)
+    public void ApplyTextDetails(string subtitle, string details)
     {
         if (servicesText)
-            servicesText.text = servicios;
+            servicesText.text = subtitle;
 
         if (hoursText)
-            hoursText.text = horarios;
+            hoursText.text = details;
     }
+
 
 }
