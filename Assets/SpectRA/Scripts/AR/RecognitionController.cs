@@ -20,7 +20,7 @@ public class RecognitionController : MonoBehaviour
 
     private void Start()
     {
-        recognizer = new BuildingRecognizer(tfliteModel, labels);
+        recognizer = new BuildingRecognizer(tfliteModel, labels, overlay, true);
 
         if (frameProvider != null)
             frameProvider.OnFrameReady += OnFrame;

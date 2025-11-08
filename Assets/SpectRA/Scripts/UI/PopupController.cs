@@ -64,7 +64,7 @@ public class PopupController : MonoBehaviour
     public void ShowDistribucion()
     {
         Show("Distribución",
-            " <b>Piso 1:</b> Laboratorio Chevrolett\n" +
+            " <b>Piso 1:</b> Laboratorio Chevrolett \n" +
             " <b>Piso 2:</b> Laboratorio de Electronica\n" +
             " <b>Piso 3:</b> laboratorios y talleres\n" +
             " <b>Piso 4:</b> Sala de computo, Aula de clase y Oficinas de profesores\n" +

@@ -14,6 +14,7 @@ public class RoleSelectionUI : MonoBehaviour
     public TMP_InputField nameInput;
     public Toggle rememberToggle;
     public GameObject root;
+    public GameObject profilePanel; // ← NUEVO
 
     private UserRole? selected;
 
@@ -44,12 +45,19 @@ public class RoleSelectionUI : MonoBehaviour
             pm.SetDisplayName(nameInput.text.Trim());
         pm.SetRole(selected.Value);
 
-        root.SetActive(false);
+        // Desactiva el ProfilePanel completo
+        if (profilePanel != null)
+            profilePanel.SetActive(false);
+        else
+            root.SetActive(false);
     }
 
     void Skip()
     {
         // No cambia nada, sigue como Visitante
-        root.SetActive(false);
+        if (profilePanel != null)
+            profilePanel.SetActive(false);
+        else
+            root.SetActive(false);
     }
 }

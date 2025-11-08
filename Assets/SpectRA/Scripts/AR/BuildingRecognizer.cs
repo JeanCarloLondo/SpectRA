@@ -100,8 +100,8 @@ public class BuildingRecognizer : IDisposable
         float confidence = (pBloque >= pNoBloque) ? pBloque : pNoBloque;
 
         // 🔹 Mostrar en pantalla (solo si tenemos overlay asignado)
-        if (overlayController != null)
-            ShowOverlay(label, confidence);
+       // if (overlayController != null)
+        //    ShowOverlay(label, confidence);
 
         return (label, confidence);
     }
